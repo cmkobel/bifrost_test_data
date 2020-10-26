@@ -7,6 +7,7 @@ cd read_data; \
 bash download_S1.sh; \
 cd $BIFROST_RUN_DIR; \
 docker run \
+    --network="host" \
     --env BIFROST_DB_KEY \
     --mount type=bind,source=$BIFROST_RUN_DIR,target=$BIFROST_RUN_DIR \
     ssidk/bifrost_run_launcher:latest \
@@ -22,6 +23,7 @@ for IMAGE in bifrost_min_read_check bifrost_whats_my_species bifrost_assemblatro
 do
     echo "Downloading and installing $IMAGE"
     docker run \
+        --network="host" \
         --env BIFROST_DB_KEY \
         ssidk/$IMAGE:latest \
         --install;
